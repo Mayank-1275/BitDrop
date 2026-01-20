@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BitDrop - Image Downsampling Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 BitDrop</h1>
+            <p>Advanced Image Downsampling Tool</p>
+        </div>
+
+        <div class="main-grid">
+            <div class="controls-panel">
+                <div class="control-section">
+                    <h3>📁 Upload Image</h3>
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📸</div>
+                        <div class="upload-text">
+                            <strong>Click to upload</strong> or drag and drop<br>
+                            <small>PNG, JPG, JPEG (Max 10MB)</small>
+                        </div>
+                    </div>
+                    <input type="file" id="fileInput" accept="image/png,image/jpeg,image/jpg">
+                </div>
+
+                <div class="control-section">
+                    <h3>⚙️ Downsampling Settings</h3>
+                    
+                    <div class="form-group">
+                        <label for="downsampleMethod">Downsampling Method</label>
+                        <select id="downsampleMethod">
+                            <option value="average">Average Pooling</option>
+                            <option value="max">Max Pooling</option>
+                            <option value="min">Min Pooling</option>
+                            <option value="median">Median Pooling</option>
+                            <option value="gaussian">Gaussian Pooling</option>
+                            <option value="bilinear">Bilinear Interpolation</option>
+                            <option value="bicubic">Bicubic Interpolation</option>
+                            <option value="lanczos">Lanczos Resampling</option>
+                            <option value="nearest">Nearest Neighbor</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="downsampleFactor">Downsampling Factor</label>
+                        <select id="downsampleFactor">
+                            <option value="2">2x (Half Size)</option>
+                            <option value="4">4x (Quarter Size)</option>
+                            <option value="8">8x (Eighth Size)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="levels">Number of Levels</label>
+                        <input type="number" id="levels" min="1" max="10" value="3">
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="showIntermediate">
+                        <label for="showIntermediate">Show Intermediate Steps</label>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="maintainAspect" checked>
+                        <label for="maintainAspect">Maintain Aspect Ratio</label>
+                    </div>
+                </div>
+
+                <button class="btn" id="processBtn" disabled>
+                    <span>Process Image</span>
+                </button>
+
+                <button class="btn btn-secondary" id="downloadAllBtn" disabled>
+                    <span>📥 Download All</span>
+                </button>
+
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-label">
+                        <span id="progressText">Processing...</span>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-panel">
+                <div class="results-header">
+                    <h2>Results</h2>
+                    <div class="view-toggle">
+                        <button class="active" data-view="grid">Grid</button>
+                        <button data-view="list">List</button>
+                    </div>
+                </div>
+
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-state-icon">🖼️</div>
+                    <p>Upload an image and click "Process Image" to get started</p>
+                </div>
+
+                <div id="resultsContainer" class="images-grid hidden"></div>
+
+                <div id="statsContainer" class="hidden"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
