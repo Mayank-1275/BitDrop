@@ -32,7 +32,7 @@ BitDrop is a client-side application requiring no complex backend setup.
 3.  Open `index.html` in any modern web browser (Chrome, Firefox, Edge).
 
 ### Option 2: Live Demo
-[Insert Link to GitHub Pages if available]
+[https://mayank-1275.github.io/BitDrop/]
 
 ## 🧪 Technical Implementation
 
