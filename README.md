@@ -20,7 +20,7 @@
 
 BitDrop is a client-side application requiring no complex backend setup.
 
-### Option 1: Run Locally
+#### Option 1: Run Locally
 1.  Clone the repository:
     ```bash
     git clone [https://github.com/Mayank-1275/BitDrop](https://github.com/Mayank-1275/BitDrop)
@@ -31,7 +31,7 @@ BitDrop is a client-side application requiring no complex backend setup.
     ```
 3.  Open `index.html` in any modern web browser (Chrome, Firefox, Edge).
 
-### Option 2: Live Demo
+#### Option 2: Live Demo
 [https://mayank-1275.github.io/BitDrop/]
 
 ## 🧪 Technical Implementation
@@ -39,6 +39,18 @@ BitDrop is a client-side application requiring no complex backend setup.
 Unlike traditional Python-based tools that rely on NumPy/OpenCV, BitDrop implements pooling algorithms directly via pixel manipulation in the HTML5 Canvas API. This allows for:
 1.  **Zero-dependency deployment.**
 2.  **Educational transparency:** The code demonstrates how kernel-based operations (like $2\times2$ sliding windows) work at the pixel array level.
+
+   ## 🧪 Reliability & Testing
+BitDrop follows strict rigorous testing standards. We include an automated browser-based test suite that validates:
+1.  **Core Algorithms:** Max, Min, Average, and Median Pooling.
+2.  **Degradation Logic:** Verifies correct downsampling across 3 levels (Original → 2x → 4x → 8x).
+3.  **Mathematical Accuracy:** Ensures output dimensions match theoretical expectations ($W_{out} = \lfloor W_{in} / Factor \rfloor$).
+
+### 🔴 Live Test Demo
+You can run the automated verification suite directly in your browser without installing dependencies:
+👉 **[Run Automated Test Suite](https://mayank-1275.github.io/BitDrop/test/)**
+
+*(This suite processes a sample image in real-time and validates the pixel manipulation logic)*.
 
 ## 📄 License
 
