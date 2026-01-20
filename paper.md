@@ -68,4 +68,8 @@ BitDrop implements core algorithms directly via JavaScript pixel manipulation:
 
 BitDrop serves as a dual-purpose tool: it is an educational platform for visualizing sampling artifacts and a practical utility for quantitative image analysis. By democratizing access to complex metric calculations in a secure, browser-based environment, it empowers researchers to make data-driven decisions in their image processing workflows.
 
+# Acknowledgements
+
+The development of BitDrop was assisted by AI tools (Large Language Models) for generating initial code structures, refactoring boilerplate logic, and drafting documentation. The author (Mayank Kumar Mishra) has manually reviewed, tested, and validated all AI-generated outputs to ensure accuracy and algorithmic correctness. The core design decisions and scientific validation were performed by the author.
+
 # References
