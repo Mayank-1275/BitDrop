@@ -46,9 +46,9 @@ BitDrop follows strict rigorous testing standards. We include an automated brows
 2.  **Degradation Logic:** Verifies correct downsampling across 3 levels (Original → 2x → 4x → 8x).
 3.  **Mathematical Accuracy:** Ensures output dimensions match theoretical expectations ($W_{out} = \lfloor W_{in} / Factor \rfloor$).
 
-### 🔴 Live Test Demo
+#### 🔴 Live Test Demo
 You can run the automated verification suite directly in your browser without installing dependencies:
-👉 **[Run Automated Test Suite](https://mayank-1275.github.io/BitDrop/test/)**
+👉 **[Run Automated Test Suite]([https://mayank-1275.github.io/BitDrop/test/](https://mayank-1275.github.io/BitDrop/test/index.html)**
 
 *(This suite processes a sample image in real-time and validates the pixel manipulation logic)*.
 
