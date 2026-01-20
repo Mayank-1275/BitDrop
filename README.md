@@ -40,10 +40,6 @@ Unlike traditional Python-based tools that rely on NumPy/OpenCV, BitDrop impleme
 1.  **Zero-dependency deployment.**
 2.  **Educational transparency:** The code demonstrates how kernel-based operations (like $2\times2$ sliding windows) work at the pixel array level.
 
-## 🤝 Contributing
-
-Contributions are welcome! Please read `CONTRIBUTING.md` for details on our code of conduct, and the process for submitting pull requests.
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
