@@ -95,13 +95,14 @@ processBtn.addEventListener('click', async () => {
     resultsContainer.classList.remove('hidden');
 
     try {
-        // Add original image
+        // Add original image (PSNR is Infinity/Perfect)
         processedImages.push({
             name: 'Original',
             image: originalImage,
             width: originalImage.width,
             height: originalImage.height,
-            size: calculateImageSize(originalImage.width, originalImage.height)
+            size: calculateImageSize(originalImage.width, originalImage.height),
+            metrics: { mse: 0, psnr: '∞' }
         });
 
         let currentImg = originalImage;
@@ -113,6 +114,12 @@ processBtn.addEventListener('click', async () => {
             
             const downsampled = downsampleImage(currentImg, factor, method, maintainAspect);
             
+            // Calculate Scientific Metrics (MSE & PSNR)
+            // Note: We compare the downsampled image against the original logic
+            // To compare accurately, we conceptually treat the original as the ground truth.
+            // Here we compare the current downsampled step vs original for quality loss analysis.
+            const metrics = calculateImageMetrics(originalImage, downsampled);
+
             // Only show intermediate steps if checkbox is checked
             if (showIntermediate || i === levels) {
                 processedImages.push({
@@ -121,7 +128,8 @@ processBtn.addEventListener('click', async () => {
                     width: downsampled.width,
                     height: downsampled.height,
                     size: calculateImageSize(downsampled.width, downsampled.height),
-                    level: i
+                    level: i,
+                    metrics: metrics // Store metrics
                 });
             }
             
@@ -278,6 +286,64 @@ function getPooledPixel(imageData, startX, startY, factor, method) {
     return pixels[0];
 }
 
+// --- NEW FUNCTION: SCIENTIFIC METRIC CALCULATION ---
+// Calculates MSE and PSNR by comparing downsampled image (scaled back up) vs Original
+function calculateImageMetrics(originalImg, processedImg) {
+    // We need to compare pixels. To do this, we need to extract pixel data.
+    // Since sizes differ, we scale the processed image back up to original size
+    // using Nearest Neighbor to preserve the "blocky" downsampled effect for accurate error measuring.
+    
+    const w = originalImg.width;
+    const h = originalImg.height;
+
+    // 1. Get Original Data
+    const canvas1 = document.createElement('canvas');
+    canvas1.width = w;
+    canvas1.height = h;
+    const ctx1 = canvas1.getContext('2d');
+    ctx1.drawImage(originalImg, 0, 0, w, h);
+    const data1 = ctx1.getImageData(0, 0, w, h).data;
+
+    // 2. Get Processed Data (Scaled Up)
+    const canvas2 = document.createElement('canvas');
+    canvas2.width = w;
+    canvas2.height = h;
+    const ctx2 = canvas2.getContext('2d');
+    ctx2.imageSmoothingEnabled = false; // Nearest neighbor to keep pixels sharp
+    ctx2.drawImage(processedImg, 0, 0, w, h);
+    const data2 = ctx2.getImageData(0, 0, w, h).data;
+
+    // 3. Calculate MSE
+    let sumSquaredError = 0;
+    // Iterate R, G, B (skip Alpha for MSE usually, or include it. Here we do RGB)
+    for (let i = 0; i < data1.length; i += 4) {
+        const rDiff = data1[i] - data2[i];
+        const gDiff = data1[i+1] - data2[i+1];
+        const bDiff = data1[i+2] - data2[i+2];
+        
+        sumSquaredError += (rDiff * rDiff) + (gDiff * gDiff) + (bDiff * bDiff);
+    }
+
+    const totalPixels = w * h;
+    // Divide by total pixels * 3 channels
+    const mse = sumSquaredError / (totalPixels * 3);
+
+    // 4. Calculate PSNR
+    // PSNR = 10 * log10(MAX^2 / MSE). For 8-bit images, MAX is 255.
+    let psnr;
+    if (mse === 0) {
+        psnr = '∞'; // Perfect match
+    } else {
+        psnr = (10 * Math.log10((255 * 255) / mse)).toFixed(2) + ' dB';
+    }
+
+    return {
+        mse: mse.toFixed(2),
+        psnr: psnr
+    };
+}
+
+
 // Display Results
 function displayResults() {
     resultsContainer.innerHTML = '';
@@ -309,8 +375,24 @@ function createImageCard(imgData, index) {
     title.className = 'image-title';
     title.textContent = imgData.name;
     
+    // Updated HTML to show PSNR and MSE
     const meta = document.createElement('div');
     meta.className = 'image-meta';
+    
+    let metricsHtml = '';
+    if (imgData.metrics) {
+        metricsHtml = `
+        <div class="image-meta-row" style="color: var(--color-primary); font-weight: bold; margin-top:4px; border-top: 1px solid var(--color-border); padding-top:4px;">
+            <span>Quality (PSNR):</span>
+            <span>${imgData.metrics.psnr}</span>
+        </div>
+        <div class="image-meta-row">
+            <span>Error (MSE):</span>
+            <span>${imgData.metrics.mse}</span>
+        </div>
+        `;
+    }
+
     meta.innerHTML = `
         <div class="image-meta-row">
             <span>Dimensions:</span>
@@ -320,6 +402,7 @@ function createImageCard(imgData, index) {
             <span>Est. Size:</span>
             <span>${imgData.size}</span>
         </div>
+        ${metricsHtml}
     `;
     
     const downloadBtn = document.createElement('button');
