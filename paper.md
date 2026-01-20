@@ -46,7 +46,7 @@ BitDrop integrates a comprehensive suite of features tailored for image processi
     * **Mean Squared Error (MSE):** Quantifies the average pixel intensity error between the original and reconstructed images.
     * **Peak Signal-to-Noise Ratio (PSNR):** Provides a standard decibel (dB) score to evaluate reconstruction quality objectively.
 * **Comprehensive Algorithm Suite:**
-    * **Pooling:** Max Pooling (Edge preservation), Min Pooling (Dark feature detection), Average Pooling (Smoothing), Median Pooling (Noise removal).
+    * **Pooling:** Max Pooling (Edge preservation) [@Blot2016], Min Pooling (Dark feature detection), Average Pooling (Smoothing), Median Pooling (Noise removal) [@Satti2020].
     * **Interpolation:** Bilinear, Bicubic, and Lanczos resampling for high-quality scaling comparison.
     * **Filtering:** Gaussian Pooling to minimize aliasing artifacts.
 * **Export & Usability:**
