@@ -23,7 +23,7 @@ BitDrop is a client-side application requiring no complex backend setup.
 ### Option 1: Run Locally
 1.  Clone the repository:
     ```bash
-    git clone [https://github.com/your-username/bitdrop.git](https://github.com/your-username/bitdrop.git)
+    git clone [https://github.com/Mayank-1275/BitDrop](https://github.com/Mayank-1275/BitDrop)
     ```
 2.  Navigate to the directory:
     ```bash
