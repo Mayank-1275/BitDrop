@@ -62,7 +62,7 @@ BitDrop follows strict rigorous testing standards. We include an automated brows
 
 #### 🔴 Live Test Demo
 You can run the automated verification suite directly in your browser without installing dependencies:
-👉 **[Run Automated Test Suite]([https://mayank-1275.github.io/BitDrop/test/](https://mayank-1275.github.io/BitDrop/test/index.html)**
+👉 **[Run Automated Test Suite](https://mayank-1275.github.io/BitDrop/test/index.html)**
 
 *(This suite processes a sample image in real-time and validates the pixel manipulation logic)*.
 
