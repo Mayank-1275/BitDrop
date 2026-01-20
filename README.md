@@ -34,11 +34,25 @@ BitDrop is a client-side application requiring no complex backend setup.
 #### Option 2: Live Demo
 [https://mayank-1275.github.io/BitDrop/]
 
-## 🧪 Technical Implementation
+## 🛠️ Technical Implementation
 
-Unlike traditional Python-based tools that rely on NumPy/OpenCV, BitDrop implements pooling algorithms directly via pixel manipulation in the HTML5 Canvas API. This allows for:
-1.  **Zero-dependency deployment.**
-2.  **Educational transparency:** The code demonstrates how kernel-based operations (like $2\times2$ sliding windows) work at the pixel array level.
+BitDrop is built entirely on the **Client-Side** using Vanilla JavaScript (ES6+) and the **HTML5 Canvas API**. Unlike traditional Python-based tools that rely on "black-box" libraries like NumPy or OpenCV, BitDrop implements pooling algorithms from scratch by directly manipulating the pixel buffer.
+
+#### Key Architectural Decisions:
+
+1.  **Direct Pixel Manipulation:**
+    * The tool accesses raw image data via `ctx.getImageData()`, which returns a `Uint8ClampedArray`.
+    * Algorithms iterate over this 1D array using mathematical striding logic to simulate 2D sliding windows (e.g., identifying the max value in a $2\times2$ block).
+
+2.  **Zero-Dependency Deployment:**
+    * Runs without any backend server (No Node.js, Python, or PHP required).
+    * No heavy external libraries; the logic is pure native JavaScript.
+
+3.  **Educational Transparency:**
+    * The codebase serves as a "White Box" reference. Researchers can inspect `script.js` to see exactly how mathematical operations (like RMS calculation or Gaussian Kernel weights) are applied at the pixel level.
+
+4.  **Non-Blocking Performance:**
+    * Heavy image processing tasks are handled asynchronously to ensure the UI remains responsive, even when processing high-resolution (4K+) images.
 
    ## 🧪 Reliability & Testing
 BitDrop follows strict rigorous testing standards. We include an automated browser-based test suite that validates:
