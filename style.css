@@ -85,7 +85,8 @@ body {
     font-size: 1.1rem;
 }
 
-.main-grid {
+/* Ensure both class names work for the main grid */
+.main-grid, .app-container {
     display: grid;
     grid-template-columns: 350px 1fr;
     gap: var(--space-24);
@@ -93,7 +94,7 @@ body {
 }
 
 @media (max-width: 1024px) {
-    .main-grid {
+    .main-grid, .app-container {
         grid-template-columns: 1fr;
     }
 }
@@ -261,7 +262,7 @@ body {
     box-shadow: var(--shadow-sm);
 }
 
-.results-panel {
+.results-panel, .results-area {
     background: var(--color-surface);
     border-radius: var(--radius-lg);
     padding: var(--space-24);
@@ -478,4 +479,56 @@ body {
 
 .hidden {
     display: none !important;
+}
+
+/* --- FIXED: Overlap Issues on Small/Half Screens --- */
+@media (max-width: 900px) {
+    
+    /* Force column layout to stop overlapping */
+    .app-container, .main-grid {
+        display: flex;
+        flex-direction: column;
+        height: auto !important;
+        overflow-y: visible !important;
+    }
+
+    .sidebar, .controls-panel {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        position: relative;
+        top: 0;
+        margin-bottom: 20px;
+    }
+
+    .results-area, .results-panel {
+        width: 100%;
+        height: auto;
+        min-height: 500px;
+        overflow: visible;
+    }
+
+    /* Fix Cat Image Overlap */
+    .empty-placeholder, .empty-state {
+        position: relative;
+        transform: none;
+        top: auto;
+        left: auto;
+        margin: 50px auto;
+        padding: 20px;
+    }
+
+    .placeholder-content img, .empty-state-icon {
+        max-width: 150px;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    /* Prevent Footer Overlap */
+    footer {
+        position: relative;
+        margin-top: 50px;
+        padding: 20px;
+        clear: both;
+    }
 }
